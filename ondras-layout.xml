@@ -37,26 +37,23 @@
 		<type label="SET" length="1" sql="SET" quote=""/>
 		<type label="Bit" length="0" sql="bit" quote=""/>
 	</group>
-</datatypes><table x="179" y="132" name="venues">
+</datatypes><table x="213" y="112" name="venues">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="name" null="1" autoincrement="0">
-<datatype>INTEGER(255)</datatype>
+<datatype>VARCHAR(255)</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="623" y="108" name="bands">
+<table x="603" y="108" name="bands">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="name" null="1" autoincrement="0">
-<datatype>INTEGER(255)</datatype>
-<default>NULL</default></row>
-<row name="genre" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
+<datatype>VARCHAR(255)</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>

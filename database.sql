@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS `venues`;
 
 CREATE TABLE `venues` (
   `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
-  `name` INTEGER(255) NULL DEFAULT NULL,
+  `name` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -27,8 +27,7 @@ DROP TABLE IF EXISTS `bands`;
 
 CREATE TABLE `bands` (
   `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
-  `name` INTEGER(255) NULL DEFAULT NULL,
-  `genre` INTEGER NULL DEFAULT NULL,
+  `name` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -66,7 +65,7 @@ ALTER TABLE `concerts` ADD FOREIGN KEY (venue_id) REFERENCES `venues` (`id`);
 
 -- INSERT INTO `venues` (`id`,`name`) VALUES
 -- ('','');
--- INSERT INTO `bands` (`id`,`name`,`genre`) VALUES
--- ('','','');
+-- INSERT INTO `bands` (`id`,`name`) VALUES
+-- ('','');
 -- INSERT INTO `concerts` (`date`,`band_id`,`venue_id`) VALUES
 -- ('','','');
