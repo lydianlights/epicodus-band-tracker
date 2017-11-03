@@ -10,8 +10,7 @@ namespace BandTracker.Models
     {
         get
         {
-            MySqlConnection conn = new MySqlConnection(DBConfiguration.ConnectionString);
-            return conn;
+            return new MySqlConnection(DBConfiguration.ConnectionString);
         }
     }
   }
