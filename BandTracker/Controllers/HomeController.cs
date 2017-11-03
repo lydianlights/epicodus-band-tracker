@@ -14,5 +14,21 @@ namespace BandTracker.Controllers
             var model = new IndexModel();
             return View(model);
         }
+        [HttpPost("/bands/add")]
+        public ActionResult AddBand()
+        {
+            string name = Request.Form["band-name"];
+            var newBand = new Band(name);
+            newBand.Save();
+            return Redirect("/");
+        }
+        [HttpPost("/venues/add")]
+        public ActionResult AddVenue()
+        {
+            string name = Request.Form["venue-name"];
+            var newVenue = new Venue(name);
+            newVenue.Save();
+            return Redirect("/");
+        }
     }
 }
