@@ -6,14 +6,14 @@ namespace BandTracker.Models
 {
     public class Concert
     {
-        public int BandId {get; private set;}
-        public int VenueId {get; private set;}
+        public Band Band {get; private set;}
+        public Venue Venue {get; private set;}
         public DateTime Date {get; private set;}
 
-        public Concert(int bandId, int venueId, DateTime date)
+        public Concert(Band band, Venue venue, DateTime date)
         {
-            BandId = bandId;
-            VenueId = venueId;
+            Band = band;
+            Venue = venue;
             Date = date;
         }
         public override bool Equals(object other)
@@ -26,15 +26,15 @@ namespace BandTracker.Models
             {
                 var otherConcert = (Concert)other;
                 return (
-                    this.BandId == otherConcert.BandId &&
-                    this.VenueId == otherConcert.VenueId &&
-                    this.Date == otherConcert.Date
+                    this.Band.Equals(otherConcert.Band) &&
+                    this.Venue.Equals(otherConcert.Venue) &&
+                    this.Date.Equals(otherConcert.Date)
                 );
             }
         }
         public override int GetHashCode()
         {
-            return this.BandId.GetHashCode() + this.VenueId.GetHashCode() + this.Date.GetHashCode();
+            return this.Band.GetHashCode() + this.Venue.GetHashCode() + this.Date.GetHashCode();
         }
         public void Save()
         {
@@ -44,8 +44,8 @@ namespace BandTracker.Models
             var cmd = conn.CreateCommand() as MySqlCommand;
             cmd.CommandText = @"INSERT INTO concerts (date, band_id, venue_id) VALUES (@Date, @BandId, @VenueId);";
             cmd.Parameters.Add(new MySqlParameter("@Date", this.Date));
-            cmd.Parameters.Add(new MySqlParameter("@BandId", this.BandId));
-            cmd.Parameters.Add(new MySqlParameter("@VenueId", this.VenueId));
+            cmd.Parameters.Add(new MySqlParameter("@BandId", this.Band.Id));
+            cmd.Parameters.Add(new MySqlParameter("@VenueId", this.Venue.Id));
             cmd.ExecuteNonQuery();
 
             conn.Close();
@@ -61,14 +61,19 @@ namespace BandTracker.Models
             conn.Open();
 
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT * FROM concerts;";
+            cmd.CommandText = @"SELECT date, bands.*, venues.* FROM concerts JOIN bands ON (concerts.band_id = bands.id) JOIN venues ON (concerts.venue_id = venues.id);";
             var rdr = cmd.ExecuteReader() as MySqlDataReader;
             while(rdr.Read())
             {
                 DateTime date = rdr.GetDateTime(0);
                 int bandId = rdr.GetInt32(1);
-                int venueId = rdr.GetInt32(2);
-                output.Add(new Concert(bandId, venueId, date));
+                string bandName = rdr.GetString(2);
+                int venueId = rdr.GetInt32(3);
+                string venueName = rdr.GetString(4);
+
+                Band band = new Band(bandName, bandId);
+                Venue venue = new Venue(venueName, venueId);
+                output.Add(new Concert(band, venue, date));
             }
             conn.Close();
             if (conn != null)

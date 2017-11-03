@@ -62,6 +62,7 @@ namespace BandTracker.Models
                 string name = rdr.GetString(1);
                 output.Add(new Venue(name, id));
             }
+
             conn.Close();
             if (conn != null)
             {
@@ -115,6 +116,29 @@ namespace BandTracker.Models
         // {
         //     var newConcert = new Concert(bandId, this.Id, date);
         //     newConcert.Save();
+        // }
+        // public List<Concert> GetConcerts()
+        // {
+        //     var output = new List<Concert> {};
+        //     MySqlConnection conn = DB.Connection;
+        //     conn.Open();
+        //
+        //     // var cmd = conn.CreateCommand() as MySqlCommand;
+        //     // cmd.CommandText = @"SELECT * FROM venues;";
+        //     // var rdr = cmd.ExecuteReader() as MySqlDataReader;
+        //     // while(rdr.Read())
+        //     // {
+        //     //     int id = rdr.GetInt32(0);
+        //     //     string name = rdr.GetString(1);
+        //     //     output.Add(new Venue(name, id));
+        //     // }
+        //
+        //     conn.Close();
+        //     if (conn != null)
+        //     {
+        //         conn.Dispose();
+        //     }
+        //     return output;
         // }
         public static void DeleteAtId(int targetId)
         {

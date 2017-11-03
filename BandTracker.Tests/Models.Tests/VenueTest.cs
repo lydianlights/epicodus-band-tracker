@@ -11,6 +11,8 @@ namespace BandTracker.Models.Tests
         private Venue sampleVenue_ThePlace = new Venue("The Place");
         private Venue sampleVenue_ThePlace_2 = new Venue("The Place");
         private Venue sampleVenue_ASpot = new Venue("A Spot");
+        private Band sampleBand_Transatlantic = new Band("Transatlantic");
+        private Band sampleBand_Haken = new Band("Haken");
 
         public VenueTest()
         {
@@ -91,5 +93,27 @@ namespace BandTracker.Models.Tests
 
             CollectionAssert.AreEqual(test, result);
         }
+        // [TestMethod]
+        // public void GetConcerts_DatabaseIsEmptyAtFirst_EmptyList()
+        // {
+        //     sampleVenue_ThePlace.Save();
+        //     int result = sampleVenue_ThePlace.GetConcerts().Count;
+        //
+        //     Assert.AreEqual(0, result);
+        // }
+        // [TestMethod]
+        // public void GetConcerts_GetsAllConcertsAtVenue_Concerts()
+        // {
+        //     sampleVenue_ThePlace.Save();
+        //     sampleBand_Haken.Save();
+        //     sampleBand_Transatlantic.Save();
+        //     sampleVenue_ThePlace.AddConcert(sampleBand_Haken.Id, new DateTime(2017, 11, 3));
+        //     sampleVenue_ThePlace.AddConcert(sampleBand_Transatlantic.Id, new DateTime(2017, 11, 14));
+        //
+        //     List<Concert> result = sampleVenue_ThePlace.GetConcerts();
+        //     List<Concert> test = new List<Concert> {sampleBand_Haken, sampleBand_Transatlantic};
+        //
+        //     CollectionAssert.AreEqual(test, result);
+        // }
     }
 }

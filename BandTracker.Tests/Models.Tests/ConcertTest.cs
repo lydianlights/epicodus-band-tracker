@@ -26,11 +26,11 @@ namespace BandTracker.Models.Tests
             sampleVenue_ASpot.Save();
             sampleBand_Transatlantic.Save();
             sampleBand_Haken.Save();
-            
-            sampleConcert_TransatlanticAtThePlace = new Concert(sampleBand_Transatlantic.Id, sampleVenue_ThePlace.Id, new DateTime(2017, 11, 3));
-            sampleConcert_TransatlanticAtThePlace_2 = new Concert(sampleBand_Transatlantic.Id, sampleVenue_ThePlace.Id, new DateTime(2017, 11, 3));
-            sampleConcert_TransatlanticAtASpot = new Concert(sampleBand_Transatlantic.Id, sampleVenue_ASpot.Id, new DateTime(2017, 11, 27));
-            sampleConcert_HakenAtASpot = new Concert(sampleBand_Haken.Id, sampleVenue_ASpot.Id, new DateTime(2017, 11, 14));
+
+            sampleConcert_TransatlanticAtThePlace = new Concert(sampleBand_Transatlantic, sampleVenue_ThePlace, new DateTime(2017, 11, 3));
+            sampleConcert_TransatlanticAtThePlace_2 = new Concert(sampleBand_Transatlantic, sampleVenue_ThePlace, new DateTime(2017, 11, 3));
+            sampleConcert_TransatlanticAtASpot = new Concert(sampleBand_Transatlantic, sampleVenue_ASpot, new DateTime(2017, 11, 27));
+            sampleConcert_HakenAtASpot = new Concert(sampleBand_Haken, sampleVenue_ASpot, new DateTime(2017, 11, 14));
         }
         public void Dispose()
         {
