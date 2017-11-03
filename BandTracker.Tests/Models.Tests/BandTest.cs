@@ -18,7 +18,7 @@ namespace BandTracker.Models.Tests
         }
         public void Dispose()
         {
-            Band.ClearAll();
+            DB.ClearAllTables();
         }
 
         [TestMethod]

@@ -20,7 +20,7 @@ namespace BandTracker.Models.Tests
         }
         public void Dispose()
         {
-            Venue.ClearAll();
+            DB.ClearAllTables();
         }
 
         [TestMethod]

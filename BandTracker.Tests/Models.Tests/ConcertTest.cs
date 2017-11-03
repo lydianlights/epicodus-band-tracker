@@ -34,7 +34,7 @@ namespace BandTracker.Models.Tests
         }
         public void Dispose()
         {
-            Concert.ClearAll();
+            DB.ClearAllTables();
         }
 
         [TestMethod]

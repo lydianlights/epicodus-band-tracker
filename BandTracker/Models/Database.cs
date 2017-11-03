@@ -13,5 +13,11 @@ namespace BandTracker.Models
                 return new MySqlConnection(DBConfiguration.ConnectionString);
             }
         }
+        public static void ClearAllTables()
+        {
+            Concert.ClearAll();
+            Venue.ClearAll();
+            Band.ClearAll();
+        }
     }
 }
