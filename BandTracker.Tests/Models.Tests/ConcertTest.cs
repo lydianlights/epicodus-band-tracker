@@ -63,6 +63,17 @@ namespace BandTracker.Models.Tests
             Assert.AreEqual(sampleConcert_TransatlanticAtThePlace, result);
         }
         [TestMethod]
+        public void AddConcertByIds_SavesToDatabaseUsingId_EntrySaved()
+        {
+            int bandId = sampleConcert_TransatlanticAtThePlace.Band.Id;
+            int venueId = sampleConcert_TransatlanticAtThePlace.Venue.Id;
+            DateTime date = sampleConcert_TransatlanticAtThePlace.Date;
+            Concert.AddByIds(bandId, venueId, date);
+            Concert result = Concert.GetAll()[0];
+
+            Assert.AreEqual(sampleConcert_TransatlanticAtThePlace, result);
+        }
+        [TestMethod]
         public void GetAll_GetsAllEntries_AllEntries()
         {
             sampleConcert_TransatlanticAtThePlace.Save();

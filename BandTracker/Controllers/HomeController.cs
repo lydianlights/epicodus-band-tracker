@@ -36,5 +36,13 @@ namespace BandTracker.Controllers
             var model = new BandDetailsModel(bandId);
             return View(model);
         }
+        [HttpPost("/bands/{bandId}/concerts/add")]
+        public ActionResult AddConcertToBand(int bandId)
+        {
+            int venueId = Int32.Parse(Request.Form["concert-venue"]);
+            DateTime date = DateTime.Parse(Request.Form["concert-date"]);
+            Concert.AddByIds(bandId, venueId, date);
+            return Redirect($"/bands/{bandId}");
+        }
     }
 }

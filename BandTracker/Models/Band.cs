@@ -123,7 +123,8 @@ namespace BandTracker.Models
             conn.Open();
 
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT date, venues.* FROM concerts JOIN venues ON (concerts.venue_id = venues.id);";
+            cmd.CommandText = @"SELECT date, venues.* FROM concerts JOIN venues ON (concerts.venue_id = venues.id) WHERE concerts.band_id = @BandId;";
+            cmd.Parameters.Add(new MySqlParameter("@BandId", this.Id));
             var rdr = cmd.ExecuteReader() as MySqlDataReader;
             while(rdr.Read())
             {

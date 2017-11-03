@@ -38,14 +38,18 @@ namespace BandTracker.Models
         }
         public void Save()
         {
+            AddByIds(this.Band.Id, this.Venue.Id, this.Date);
+        }
+        public static void AddByIds(int bandId, int venueId, DateTime date)
+        {
             MySqlConnection conn = DB.Connection;
             conn.Open();
 
             var cmd = conn.CreateCommand() as MySqlCommand;
             cmd.CommandText = @"INSERT INTO concerts (date, band_id, venue_id) VALUES (@Date, @BandId, @VenueId);";
-            cmd.Parameters.Add(new MySqlParameter("@Date", this.Date.ToString("yyyy-MM-dd")));
-            cmd.Parameters.Add(new MySqlParameter("@BandId", this.Band.Id));
-            cmd.Parameters.Add(new MySqlParameter("@VenueId", this.Venue.Id));
+            cmd.Parameters.Add(new MySqlParameter("@Date", date.ToString("yyyy-MM-dd")));
+            cmd.Parameters.Add(new MySqlParameter("@BandId", bandId));
+            cmd.Parameters.Add(new MySqlParameter("@VenueId", venueId));
             cmd.ExecuteNonQuery();
 
             conn.Close();
