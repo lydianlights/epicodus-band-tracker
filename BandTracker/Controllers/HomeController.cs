@@ -30,5 +30,11 @@ namespace BandTracker.Controllers
             newVenue.Save();
             return Redirect("/");
         }
+        [HttpGet("/bands/{bandId}")]
+        public ActionResult BandDetails(int bandId)
+        {
+            var model = new BandDetailsModel(bandId);
+            return View(model);
+        }
     }
 }

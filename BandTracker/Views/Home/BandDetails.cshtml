@@ -1,0 +1,16 @@
+@using BandTracker.ViewModels;
+@model BandDetailsModel
+
+@{
+  Layout = "_Layout";
+}
+
+<div class="container">
+  @Html.Partial("BandDetails/Navbar")
+  <h2>@Model.CurrentBand.Name</h2>
+  <hr>
+  @Html.Partial("BandDetails/ConcertList")
+  <button class="btn btn-info" type="button" data-toggle="modal" data-target="#add-concert-modal">Add Concert</button>
+</div>
+
+@Html.Partial("BandDetails/AddConcertModal")
