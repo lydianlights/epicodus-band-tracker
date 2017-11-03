@@ -4,14 +4,14 @@ using BandTracker;
 
 namespace BandTracker.Models
 {
-  public class DB
-  {
-    public static MySqlConnection Connection
+    public class DB
     {
-        get
+        public static MySqlConnection Connection
         {
-            return new MySqlConnection(DBConfiguration.ConnectionString);
+            get
+            {
+                return new MySqlConnection(DBConfiguration.ConnectionString);
+            }
         }
     }
-  }
 }

@@ -5,13 +5,13 @@ using BandTracker.Models;
 
 namespace BandTracker.Models.Tests
 {
-  [TestClass]
-  public class BandTest
-  {
-    // [TestMethod]
-    // public void Method_Description_ExpectedValue()
-    // {
-    //
-    // }
-  }
+    [TestClass]
+    public class BandTest
+    {
+        // [TestMethod]
+        // public void Method_Description_ExpectedValue()
+        // {
+        //
+        // }
+    }
 }

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace BandTracker.Models
 {
-  public class Band
-  {
+    public class Band
+    {
 
-  }
+    }
 }
