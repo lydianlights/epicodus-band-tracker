@@ -43,7 +43,7 @@ namespace BandTracker.Models
 
             var cmd = conn.CreateCommand() as MySqlCommand;
             cmd.CommandText = @"INSERT INTO concerts (date, band_id, venue_id) VALUES (@Date, @BandId, @VenueId);";
-            cmd.Parameters.Add(new MySqlParameter("@Date", this.Date));
+            cmd.Parameters.Add(new MySqlParameter("@Date", this.Date.ToString("yyyy-MM-dd")));
             cmd.Parameters.Add(new MySqlParameter("@BandId", this.Band.Id));
             cmd.Parameters.Add(new MySqlParameter("@VenueId", this.Venue.Id));
             cmd.ExecuteNonQuery();
