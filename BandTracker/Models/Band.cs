@@ -111,6 +111,36 @@ namespace BandTracker.Models
                 conn.Dispose();
             }
         }
+        public void AddConcert(Venue venue, DateTime date)
+        {
+            var newConcert = new Concert(this, venue, date);
+            newConcert.Save();
+        }
+        public List<Concert> GetConcerts()
+        {
+            var output = new List<Concert> {};
+            MySqlConnection conn = DB.Connection;
+            conn.Open();
+
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT date, venues.* FROM concerts JOIN venues ON (concerts.venue_id = venues.id);";
+            var rdr = cmd.ExecuteReader() as MySqlDataReader;
+            while(rdr.Read())
+            {
+                DateTime date = rdr.GetDateTime(0);
+                int venueId = rdr.GetInt32(1);
+                string venueName = rdr.GetString(2);
+                Venue venue = new Venue(venueName, venueId);
+                output.Add(new Concert(this, venue, date));
+            }
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+            return output;
+        }
         public static void DeleteAtId(int targetId)
         {
             MySqlConnection conn = DB.Connection;

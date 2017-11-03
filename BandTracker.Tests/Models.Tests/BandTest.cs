@@ -11,6 +11,8 @@ namespace BandTracker.Models.Tests
         private Band sampleBand_Transatlantic = new Band("Transatlantic");
         private Band sampleBand_Transatlantic_2 = new Band("Transatlantic");
         private Band sampleBand_Haken = new Band("Haken");
+        private Venue sampleVenue_ThePlace = new Venue("The Place");
+        private Venue sampleVenue_ASpot = new Venue("A Spot");
 
         public BandTest()
         {
@@ -88,6 +90,30 @@ namespace BandTracker.Models.Tests
 
             List<Band> result = Band.GetAll();
             List<Band> test = new List<Band> {sampleBand_Transatlantic};
+
+            CollectionAssert.AreEqual(test, result);
+        }
+        [TestMethod]
+        public void GetConcerts_DatabaseIsEmptyAtFirst_EmptyList()
+        {
+            sampleVenue_ThePlace.Save();
+            int result = sampleVenue_ThePlace.GetConcerts().Count;
+
+            Assert.AreEqual(0, result);
+        }
+        [TestMethod]
+        public void GetConcerts_GetsAllConcertsOfBand_Concerts()
+        {
+            sampleBand_Haken.Save();
+            sampleVenue_ThePlace.Save();
+            sampleVenue_ASpot.Save();
+            sampleBand_Haken.AddConcert(sampleVenue_ThePlace, new DateTime(2017, 11, 3));
+            sampleBand_Haken.AddConcert(sampleVenue_ASpot, new DateTime(2017, 11, 14));
+
+            Concert resultConcert1 = sampleBand_Haken.GetConcerts()[0];
+            Concert resultConcert2 = sampleBand_Haken.GetConcerts()[1];
+            List<Venue> result = new List<Venue> {resultConcert1.Venue, resultConcert2.Venue};
+            List<Venue> test = new List<Venue> {sampleVenue_ThePlace, sampleVenue_ASpot};
 
             CollectionAssert.AreEqual(test, result);
         }
