@@ -1,0 +1,18 @@
+@using BandTracker.Models;
+@using BandTracker.ViewModels;
+@model IndexModel
+
+@if(Model.AllBands.Count > 0)
+{
+  <h2>Bands</h2>
+  <div class="list-group">
+    @foreach (Band band in Model.AllBands)
+    {
+      <a href="/bands/@band.Id" class="list-group-item">@band.Name</a>
+    }
+  </div>
+}
+else
+{
+  <h2>No Bands Available</h2>
+}

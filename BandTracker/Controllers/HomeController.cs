@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using BandTracker.Models;
+using BandTracker.ViewModels;
 
 namespace BandTracker.Controllers
 {
@@ -10,7 +11,8 @@ namespace BandTracker.Controllers
         [HttpGet("/")]
         public ActionResult Index()
         {
-            return View();
+            var model = new IndexModel();
+            return View(model);
         }
     }
 }

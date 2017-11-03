@@ -1,0 +1,18 @@
+@using BandTracker.Models;
+@using BandTracker.ViewModels;
+@model IndexModel
+
+@if(Model.AllVenues.Count > 0)
+{
+  <h2>Venues</h2>
+  <div class="list-group">
+    @foreach (Venue venue in Model.AllVenues)
+    {
+      <a href="/venues/@venue.Id" class="list-group-item">@venue.Name</a>
+    }
+  </div>
+}
+else
+{
+  <h2>No Venues Available</h2>
+}

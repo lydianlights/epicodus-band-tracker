@@ -1,3 +1,16 @@
 @{
   Layout = "_Layout";
 }
+<div class="container">
+  @Html.Partial("Index/Navbar")
+  <div class="row">
+    <div class="col-md-6">
+      @Html.Partial("Index/BandList")
+      <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#add-band-modal">Add New Band</button>
+    </div>
+    <div class="col-md-6">
+      @Html.Partial("Index/VenueList")
+      <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#add-venue-modal">Add New Venue</button>
+    </div>
+  </div>
+</div>
