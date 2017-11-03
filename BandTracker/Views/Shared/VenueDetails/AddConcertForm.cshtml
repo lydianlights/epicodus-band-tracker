@@ -1,18 +1,18 @@
 @using BandTracker.Models;
 @using BandTracker.ViewModels;
-@model BandDetailsModel
+@model VenueDetailsModel
 
-<form action="/bands/@Model.CurrentBand.Id/concerts/add" method="post">
+<form action="/venues/@Model.CurrentVenue.Id/concerts/add" method="post">
   <div class="form-group">
     <label for="concert-date">Date:</label>
     <input class="form-control" id="concert-date" name="concert-date" type="date" required>
   </div>
   <div class="form-group">
-    <label for="concert-venue">Venue:</label>
-    <select class="form-control" id="concert-venue" name="concert-venue" type="text" required>
-      @foreach(Venue venue in Model.AllVenues)
+    <label for="concert-band">Band:</label>
+    <select class="form-control" id="concert-band" name="concert-band" type="text" required>
+      @foreach(Band band in Model.AllBands)
       {
-        <option value="@venue.Id">@venue.Name</option>
+        <option value="@band.Id">@band.Name</option>
       }
     </select>
   </div>

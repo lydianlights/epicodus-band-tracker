@@ -1,0 +1,29 @@
+@using BandTracker.Models;
+@using BandTracker.ViewModels;
+@model VenueDetailsModel
+
+@if (Model.CurrentVenueConcerts.Count > 0)
+{
+  <h3>Concerts</h3>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Band</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach(Concert concert in Model.CurrentVenueConcerts)
+      {
+        <tr>
+          <td>@concert.Band.Name</td>
+          <td>@concert.Date.ToString("MM/dd/yyyy")</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
+else
+{
+  <h3>@Model.CurrentVenue.Name has no upcoming concerts</h3>
+}

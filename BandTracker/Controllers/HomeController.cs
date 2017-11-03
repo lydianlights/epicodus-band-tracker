@@ -44,5 +44,19 @@ namespace BandTracker.Controllers
             Concert.AddByIds(bandId, venueId, date);
             return Redirect($"/bands/{bandId}");
         }
+        [HttpGet("/venues/{venueId}")]
+        public ActionResult VenueDetails(int venueId)
+        {
+            var model = new VenueDetailsModel(venueId);
+            return View(model);
+        }
+        [HttpPost("/venues/{venueId}/concerts/add")]
+        public ActionResult AddConcertToVenue(int venueId)
+        {
+            int bandId = Int32.Parse(Request.Form["concert-band"]);
+            DateTime date = DateTime.Parse(Request.Form["concert-date"]);
+            Concert.AddByIds(bandId, venueId, date);
+            return Redirect($"/venues/{venueId}");
+        }
     }
 }
