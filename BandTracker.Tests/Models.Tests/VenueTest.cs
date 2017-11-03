@@ -93,27 +93,29 @@ namespace BandTracker.Models.Tests
 
             CollectionAssert.AreEqual(test, result);
         }
-        // [TestMethod]
-        // public void GetConcerts_DatabaseIsEmptyAtFirst_EmptyList()
-        // {
-        //     sampleVenue_ThePlace.Save();
-        //     int result = sampleVenue_ThePlace.GetConcerts().Count;
-        //
-        //     Assert.AreEqual(0, result);
-        // }
-        // [TestMethod]
-        // public void GetConcerts_GetsAllConcertsAtVenue_Concerts()
-        // {
-        //     sampleVenue_ThePlace.Save();
-        //     sampleBand_Haken.Save();
-        //     sampleBand_Transatlantic.Save();
-        //     sampleVenue_ThePlace.AddConcert(sampleBand_Haken.Id, new DateTime(2017, 11, 3));
-        //     sampleVenue_ThePlace.AddConcert(sampleBand_Transatlantic.Id, new DateTime(2017, 11, 14));
-        //
-        //     List<Concert> result = sampleVenue_ThePlace.GetConcerts();
-        //     List<Concert> test = new List<Concert> {sampleBand_Haken, sampleBand_Transatlantic};
-        //
-        //     CollectionAssert.AreEqual(test, result);
-        // }
+        [TestMethod]
+        public void GetConcerts_DatabaseIsEmptyAtFirst_EmptyList()
+        {
+            sampleVenue_ThePlace.Save();
+            int result = sampleVenue_ThePlace.GetConcerts().Count;
+
+            Assert.AreEqual(0, result);
+        }
+        [TestMethod]
+        public void GetConcerts_GetsAllConcertsAtVenue_Concerts()
+        {
+            sampleVenue_ThePlace.Save();
+            sampleBand_Haken.Save();
+            sampleBand_Transatlantic.Save();
+            sampleVenue_ThePlace.AddConcert(sampleBand_Haken, new DateTime(2017, 11, 3));
+            sampleVenue_ThePlace.AddConcert(sampleBand_Transatlantic, new DateTime(2017, 11, 14));
+
+            Concert resultConcert1 = sampleVenue_ThePlace.GetConcerts()[0];
+            Concert resultConcert2 = sampleVenue_ThePlace.GetConcerts()[1];
+            List<Band> result = new List<Band> {resultConcert1.Band, resultConcert2.Band};
+            List<Band> test = new List<Band> {sampleBand_Haken, sampleBand_Transatlantic};
+
+            CollectionAssert.AreEqual(test, result);
+        }
     }
 }

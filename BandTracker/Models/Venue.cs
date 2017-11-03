@@ -112,34 +112,36 @@ namespace BandTracker.Models
                 conn.Dispose();
             }
         }
-        // public void AddConcert(int bandId, DateTime date)
-        // {
-        //     var newConcert = new Concert(bandId, this.Id, date);
-        //     newConcert.Save();
-        // }
-        // public List<Concert> GetConcerts()
-        // {
-        //     var output = new List<Concert> {};
-        //     MySqlConnection conn = DB.Connection;
-        //     conn.Open();
-        //
-        //     // var cmd = conn.CreateCommand() as MySqlCommand;
-        //     // cmd.CommandText = @"SELECT * FROM venues;";
-        //     // var rdr = cmd.ExecuteReader() as MySqlDataReader;
-        //     // while(rdr.Read())
-        //     // {
-        //     //     int id = rdr.GetInt32(0);
-        //     //     string name = rdr.GetString(1);
-        //     //     output.Add(new Venue(name, id));
-        //     // }
-        //
-        //     conn.Close();
-        //     if (conn != null)
-        //     {
-        //         conn.Dispose();
-        //     }
-        //     return output;
-        // }
+        public void AddConcert(Band band, DateTime date)
+        {
+            var newConcert = new Concert(band, this, date);
+            newConcert.Save();
+        }
+        public List<Concert> GetConcerts()
+        {
+            var output = new List<Concert> {};
+            MySqlConnection conn = DB.Connection;
+            conn.Open();
+
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT date, bands.* FROM concerts JOIN bands ON (concerts.band_id = bands.id);";
+            var rdr = cmd.ExecuteReader() as MySqlDataReader;
+            while(rdr.Read())
+            {
+                DateTime date = rdr.GetDateTime(0);
+                int bandId = rdr.GetInt32(1);
+                string bandName = rdr.GetString(2);
+                Band band = new Band(bandName, bandId);
+                output.Add(new Concert(band, this, date));
+            }
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+            return output;
+        }
         public static void DeleteAtId(int targetId)
         {
             MySqlConnection conn = DB.Connection;
