@@ -42,30 +42,17 @@ namespace BandTracker.Models
         }
         public static void AddByIds(int bandId, int venueId, DateTime date)
         {
-            MySqlConnection conn = DB.Connection;
-            conn.Open();
-
-            var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"INSERT INTO concerts (date, band_id, venue_id) VALUES (@Date, @BandId, @VenueId);";
+            var cmd = DB.BeginCommand(@"INSERT INTO concerts (date, band_id, venue_id) VALUES (@Date, @BandId, @VenueId);");
             cmd.Parameters.Add(new MySqlParameter("@Date", date.ToString("yyyy-MM-dd")));
             cmd.Parameters.Add(new MySqlParameter("@BandId", bandId));
             cmd.Parameters.Add(new MySqlParameter("@VenueId", venueId));
             cmd.ExecuteNonQuery();
-
-            conn.Close();
-            if (conn != null)
-            {
-                conn.Dispose();
-            }
+            DB.EndCommand();
         }
         public static List<Concert> GetAll()
         {
             var output = new List<Concert> {};
-            MySqlConnection conn = DB.Connection;
-            conn.Open();
-
-            var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT date, bands.*, venues.* FROM concerts JOIN bands ON (concerts.band_id = bands.id) JOIN venues ON (concerts.venue_id = venues.id);";
+            var cmd = DB.BeginCommand(@"SELECT date, bands.*, venues.* FROM concerts JOIN bands ON (concerts.band_id = bands.id) JOIN venues ON (concerts.venue_id = venues.id);");
             var rdr = cmd.ExecuteReader() as MySqlDataReader;
             while(rdr.Read())
             {
@@ -79,27 +66,14 @@ namespace BandTracker.Models
                 Venue venue = new Venue(venueName, venueId);
                 output.Add(new Concert(band, venue, date));
             }
-            conn.Close();
-            if (conn != null)
-            {
-                conn.Dispose();
-            }
+            DB.EndCommand();
             return output;
         }
         public static void ClearAll()
         {
-            MySqlConnection conn = DB.Connection;
-            conn.Open();
-
-            var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"DELETE FROM concerts;";
+            var cmd = DB.BeginCommand(@"DELETE FROM concerts;");
             cmd.ExecuteNonQuery();
-
-            conn.Close();
-            if (conn != null)
-            {
-                conn.Dispose();
-            }
+            DB.EndCommand();
         }
     }
 }
