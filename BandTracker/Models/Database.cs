@@ -7,13 +7,7 @@ namespace BandTracker.Models
     public static class DB
     {
         private static MySqlConnection _currentConnection = null;
-        public static MySqlConnection Connection
-        {
-            get
-            {
-                return new MySqlConnection(DBConfiguration.ConnectionString);
-            }
-        }
+        
         public static MySqlCommand BeginCommand(string query)
         {
             _currentConnection = new MySqlConnection(DBConfiguration.ConnectionString);
