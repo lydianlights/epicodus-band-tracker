@@ -7,9 +7,13 @@ namespace BandTracker.Models
     public static class DB
     {
         private static MySqlConnection _currentConnection = null;
-        
+
         public static MySqlCommand BeginCommand(string query)
         {
+            if (_currentConnection != null)
+            {
+                throw new InvalidOperationException("Connection already in use");
+            }
             _currentConnection = new MySqlConnection(DBConfiguration.ConnectionString);
             _currentConnection.Open();
             var cmd = _currentConnection.CreateCommand() as MySqlCommand;
@@ -22,6 +26,7 @@ namespace BandTracker.Models
             if (_currentConnection != null)
             {
                 _currentConnection.Dispose();
+                _currentConnection = null;
             }
         }
 
